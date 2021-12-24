@@ -28,6 +28,18 @@ public class Live2dModel : MonoBehaviour {
 
     //自动眨眼
     private EyeBlinkMotion eyeBlinkMotion;
+
+    //鼠标拖拽引起的动作变化
+    private L2DTargetPoint drag;
+
+
+    //套用物理运算设定
+    //private PhysicsHair physicsHairSide;
+    private PhysicsHair physicsHairRight;
+    private PhysicsHair physicsHairLeft;
+
+    private PhysicsHair physicsHairBackLeft;
+    private PhysicsHair physicsHairBackRight;
     //private Live2DMotion live2dMontion1;
     void Start () {
         Live2D.init();
@@ -81,13 +93,60 @@ public class Live2dModel : MonoBehaviour {
         //眨眼
         eyeBlinkMotion = new EyeBlinkMotion();
 
+        //鼠标拖拽实例化
+        drag = new L2DTargetPoint();
 
+        ///头发摇摆
+        #region 左右两侧头发摇摆
+        ///左侧头发摇摆
+        physicsHairLeft = new PhysicsHair();
+
+        //套用物理运算
+        physicsHairLeft.setup(0.2f,0.5f,0.14f);//1 长度 单位公尺 影响摇摆快慢  2 空气阻力 0~1  3 质量 单位千克 
+
+        PhysicsHair.Src srcXLeft = PhysicsHair.Src.SRC_TO_X; //横向摇摆
+        //PhysicsHair.Src srcXLeft = PhysicsHair.Src.SRC_TO_G_ANGLE;
+        //第三个参数 PARAM_ANGLE_X变动时头发收到0.005倍的影响度的输入参数
+        physicsHairLeft.addSrcParam(srcXLeft, "PARAM_ANGLE_X",0.005f,1);
+
+        //设置输出的表现
+        PhysicsHair.Target targetLeft = PhysicsHair.Target.TARGET_FROM_ANGLE;//表现形式
+
+        physicsHairLeft.addTargetParam(targetLeft,"PARAM_HAIR_SIDE_L", 0.005f, 1);
+
+
+
+        //右侧头发摇摆
+        physicsHairRight = new PhysicsHair();
+
+        //套用物理运算
+        physicsHairRight.setup(0.2f, 0.5f, 0.14f);//1 长度 单位公尺 影响摇摆快慢  2 空气阻力 0~1  3 质量 单位千克 
+
+        PhysicsHair.Src srcXRight = PhysicsHair.Src.SRC_TO_X; //横向摇摆
+        //第三个参数 PARAM_ANGLE_X变动时头发收到0.005倍的影响度的输入参数
+        physicsHairRight.addSrcParam(srcXRight, "PARAM_ANGLE_X", 0.005f, 1);
+
+        //设置输出的表现
+        PhysicsHair.Target targetRight = PhysicsHair.Target.TARGET_FROM_ANGLE;//表现形式
+
+        physicsHairRight.addTargetParam(targetRight, "PARAM_HAIR_SIDE_R", 0.005f, 1);
+
+
+        #endregion
+
+        #region 左右后发的摇摆
+        physicsHairBackRight = new PhysicsHair();
+        physicsHairBackLeft = new PhysicsHair();
+        physicsHairBackRight.setup(0.2f, 0.5f, 0.14f);
+
+
+        #endregion
         //释放
         //live2d.dispose();
     }
-	
-	// Update is called once per frame
-	void Update () {
+
+    // Update is called once per frame
+    void Update () {
         live2dModel.setMatrix(transform.localToWorldMatrix* live2dCanvasPos);
 
         //if (Input.GetKeyDown(KeyCode.M))
@@ -131,6 +190,33 @@ public class Live2dModel : MonoBehaviour {
 
         //眨眼
         eyeBlinkMotion.setParam(live2dModel);
+
+        //模型更碎鼠标转向和看向
+        Vector3 pos = Input.mousePosition;
+        if (Input.GetMouseButton(0))
+        {
+            drag.Set(pos.x / Screen.width * 2 - 1, pos.y / Screen.height * 2 - 1);//固定公式
+        }
+        else if (Input.GetMouseButtonUp(0))
+        {
+            drag.Set(0, 0);
+        }
+        //参数及时更新
+        drag.update();
+
+        //模型的转向
+        if (drag.getX() != 0)
+        {
+            live2dModel.setParamFloat("PARAM_ANGLE_X",30*drag.getX());
+            live2dModel.setParamFloat("PARAM_ANGLE_Y", 30 * drag.getY());
+            live2dModel.setParamFloat("PARAM_BODY_ANGLE_X", 10 * drag.getX());
+            live2dModel.setParamFloat("PARAM_EYE_BALL_X", 10 * drag.getX());
+            live2dModel.setParamFloat("PARAM_EYE_BALL_Y", 10 * drag.getY());
+        }
+        long time = UtSystem.getSystemTimeMSec();//执行时间
+
+        physicsHairRight.update(live2dModel, time);//
+        physicsHairLeft.update(live2dModel, time);
 
         //更新顶点 参数 等.....
         live2dModel.update();

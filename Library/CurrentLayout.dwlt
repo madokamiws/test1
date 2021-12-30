@@ -13,8 +13,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_PixelRect:
     serializedVersion: 2
-    x: 9
-    y: 63
+    x: 805
+    y: 367
     width: 1920
     height: 997
   m_ShowMode: 4
@@ -377,8 +377,8 @@ MonoBehaviour:
   m_DepthBufferBits: 0
   m_Pos:
     serializedVersion: 2
-    x: 1082
-    y: 112
+    x: 1878
+    y: 416
     width: 291
     height: 926
   m_SearchFilter:
@@ -392,8 +392,7 @@ MonoBehaviour:
     m_ScenePaths: []
     m_ShowAllHits: 0
     m_SearchArea: 0
-    m_Folders:
-    - Assets/Scripts
+    m_Folders: []
   m_ViewMode: 0
   m_StartGridSize: 64
   m_LastFolders: []
@@ -404,7 +403,7 @@ MonoBehaviour:
     scrollPos: {x: 0, y: 0}
     m_SelectedIDs: 56270000
     m_LastClickedID: 10070
-    m_ExpandedIDs: 00000000582700007027000078270000b027000006280000
+    m_ExpandedIDs: 000000005a270000722700007a270000b227000008280000
     m_RenameOverlay:
       m_UserAcceptedRename: 0
       m_Name: 
@@ -432,21 +431,21 @@ MonoBehaviour:
     scrollPos: {x: 0, y: 0}
     m_SelectedIDs: 
     m_LastClickedID: 0
-    m_ExpandedIDs: 00000000582700007027000078270000b027000006280000
+    m_ExpandedIDs: 000000005a270000722700007a270000b227000008280000
     m_RenameOverlay:
       m_UserAcceptedRename: 0
-      m_Name: Live2dModel
-      m_OriginalName: Live2dModel
+      m_Name: 
+      m_OriginalName: 
       m_EditFieldRect:
         serializedVersion: 2
         x: 0
         y: 0
         width: 0
         height: 0
-      m_UserData: 1844
+      m_UserData: 0
       m_IsWaitingForDelay: 0
       m_IsRenaming: 0
-      m_OriginalEventType: 0
+      m_OriginalEventType: 11
       m_IsRenamingFilename: 1
       m_ClientGUIView: {fileID: 4}
     m_SearchString: 
@@ -509,8 +508,8 @@ MonoBehaviour:
   m_DepthBufferBits: 0
   m_Pos:
     serializedVersion: 2
-    x: 1612
-    y: 112
+    x: 2408
+    y: 416
     width: 317
     height: 926
   m_ScrollPosition: {x: 0, y: 0}
@@ -542,13 +541,13 @@ MonoBehaviour:
   m_DepthBufferBits: 0
   m_Pos:
     serializedVersion: 2
-    x: 1377
-    y: 112
+    x: 2173
+    y: 416
     width: 231
     height: 926
   m_TreeViewState:
     scrollPos: {x: 0, y: 0}
-    m_SelectedIDs: 34070000
+    m_SelectedIDs: 
     m_LastClickedID: 0
     m_ExpandedIDs: 9cfbffff00000000
     m_RenameOverlay:
@@ -670,8 +669,8 @@ MonoBehaviour:
   m_DepthBufferBits: 32
   m_Pos:
     serializedVersion: 2
-    x: 9
-    y: 112
+    x: 805
+    y: 416
     width: 1069
     height: 610
   m_MaximizeOnPlay: 0
@@ -746,7 +745,7 @@ MonoBehaviour:
   m_DepthBufferBits: 0
   m_Pos:
     serializedVersion: 2
-    x: 9
-    y: 743
+    x: 805
+    y: 1047
     width: 1069
     height: 295

@@ -135,11 +135,28 @@ public class Live2dModel : MonoBehaviour {
         #endregion
 
         #region 左右后发的摇摆
-        physicsHairBackRight = new PhysicsHair();
         physicsHairBackLeft = new PhysicsHair();
-        physicsHairBackRight.setup(0.2f, 0.5f, 0.14f);
+        physicsHairBackRight = new PhysicsHair();
 
+        physicsHairBackLeft.setup(0.2f, 0.5f, 0.18f);
+        physicsHairBackRight.setup(0.2f, 0.5f, 0.18f);
+        //左边
+        PhysicsHair.Src srcXBackLeft = PhysicsHair.Src.SRC_TO_X;
+        PhysicsHair.Src srcZBackLeft = PhysicsHair.Src.SRC_TO_G_ANGLE;
+        physicsHairBackLeft.addSrcParam(srcXBackLeft, "PARAM_ANGLE_X", 0.005f, 1);
+        physicsHairBackLeft.addSrcParam(srcZBackLeft, "PARAM_ANGLE_Z", 0.8f, 1);
 
+        PhysicsHair.Target targetBackLeft = PhysicsHair.Target.TARGET_FROM_ANGLE;
+        physicsHairBackLeft.addTargetParam(targetBackLeft, "PARAM_HAIR_BACK_L", 0.05f, 1);
+        //右边
+        PhysicsHair.Src srcXBackRight = PhysicsHair.Src.SRC_TO_X;
+        PhysicsHair.Src srcZBackRight = PhysicsHair.Src.SRC_TO_G_ANGLE;
+
+        physicsHairBackRight.addSrcParam(srcXBackRight, "PARAM_ANGLE_X", 0.005f, 1);
+        physicsHairBackRight.addSrcParam(srcZBackRight, "PARAM_ANGLE_Z", 0.8f, 1);
+        //physicsHairBackRight.setup(0.2f, 0.5f, 0.14f);
+        PhysicsHair.Target targetBackRight = PhysicsHair.Target.TARGET_FROM_ANGLE;
+        physicsHairBackRight.addTargetParam(targetBackRight, "PARAM_HAIR_BACK_R", 0.05f, 1);
         #endregion
         //释放
         //live2d.dispose();
@@ -191,7 +208,7 @@ public class Live2dModel : MonoBehaviour {
         //眨眼
         eyeBlinkMotion.setParam(live2dModel);
 
-        //模型更碎鼠标转向和看向
+        //模型更新鼠标转向和看向
         Vector3 pos = Input.mousePosition;
         if (Input.GetMouseButton(0))
         {
@@ -217,8 +234,10 @@ public class Live2dModel : MonoBehaviour {
 
         physicsHairRight.update(live2dModel, time);//
         physicsHairLeft.update(live2dModel, time);
-
+        physicsHairBackLeft.update(live2dModel, time);
+        physicsHairBackRight.update(live2dModel, time);
         //更新顶点 参数 等.....
+
         live2dModel.update();
 
 

@@ -136,10 +136,10 @@ public class Live2dModel : MonoBehaviour {
 
         #region 左右后发的摇摆
         physicsHairBackLeft = new PhysicsHair();
-        physicsHairBackRight = new PhysicsHair();
 
-        physicsHairBackLeft.setup(0.2f, 0.5f, 0.18f);
-        physicsHairBackRight.setup(0.2f, 0.5f, 0.18f);
+
+        physicsHairBackLeft.setup(0.24f, 0.5f, 0.18f);
+
         //左边
         PhysicsHair.Src srcXBackLeft = PhysicsHair.Src.SRC_TO_X;
         PhysicsHair.Src srcZBackLeft = PhysicsHair.Src.SRC_TO_G_ANGLE;
@@ -147,8 +147,12 @@ public class Live2dModel : MonoBehaviour {
         physicsHairBackLeft.addSrcParam(srcZBackLeft, "PARAM_ANGLE_Z", 0.8f, 1);
 
         PhysicsHair.Target targetBackLeft = PhysicsHair.Target.TARGET_FROM_ANGLE;
-        physicsHairBackLeft.addTargetParam(targetBackLeft, "PARAM_HAIR_BACK_L", 0.05f, 1);
+        physicsHairBackLeft.addTargetParam(targetBackLeft, "PARAM_HAIR_BACK_L", 0.005f, 1);
+
         //右边
+        physicsHairBackRight = new PhysicsHair();
+        physicsHairBackRight.setup(0.24f, 0.5f, 0.18f);
+
         PhysicsHair.Src srcXBackRight = PhysicsHair.Src.SRC_TO_X;
         PhysicsHair.Src srcZBackRight = PhysicsHair.Src.SRC_TO_G_ANGLE;
 
@@ -156,7 +160,7 @@ public class Live2dModel : MonoBehaviour {
         physicsHairBackRight.addSrcParam(srcZBackRight, "PARAM_ANGLE_Z", 0.8f, 1);
         //physicsHairBackRight.setup(0.2f, 0.5f, 0.14f);
         PhysicsHair.Target targetBackRight = PhysicsHair.Target.TARGET_FROM_ANGLE;
-        physicsHairBackRight.addTargetParam(targetBackRight, "PARAM_HAIR_BACK_R", 0.05f, 1);
+        physicsHairBackRight.addTargetParam(targetBackRight, "PARAM_HAIR_BACK_R", 0.005f, 1);
         #endregion
         //释放
         //live2d.dispose();

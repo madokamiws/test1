@@ -40,6 +40,13 @@ public class Live2dModel : MonoBehaviour {
 
     private PhysicsHair physicsHairBackLeft;
     private PhysicsHair physicsHairBackRight;
+
+
+    //表情
+    public TextAsset[] expressionFiles;
+    public L2DExpressionMotion[] expressions;
+    private MotionQueueManager expressionMotionQueueManager;
+
     //private Live2DMotion live2dMontion1;
     void Start () {
         Live2D.init();
@@ -162,8 +169,19 @@ public class Live2dModel : MonoBehaviour {
         PhysicsHair.Target targetBackRight = PhysicsHair.Target.TARGET_FROM_ANGLE;
         physicsHairBackRight.addTargetParam(targetBackRight, "PARAM_HAIR_BACK_R", 0.005f, 1);
         #endregion
+
+        //表情
+        expressionMotionQueueManager = new MotionQueueManager();
+        expressions = new L2DExpressionMotion[expressionFiles.Length];
+        for (int i = 0; i < expressions.Length; i++)
+        {
+            expressions[i] = L2DExpressionMotion.loadJson(expressionFiles[i].bytes);
+        }
+
         //释放
         //live2d.dispose();
+
+
     }
 
     // Update is called once per frame
@@ -181,6 +199,18 @@ public class Live2dModel : MonoBehaviour {
         //}
         //mtionQueueManager.updateParam(live2dModel);
         //mtionQueueManager2.updateParam(live2dModel);
+
+        //表情管理
+        if (Input.GetKeyDown(KeyCode.M))
+        {
+            motionIndex++;
+            if (motionIndex >= expressions.Length)
+            {
+                motionIndex = 0;
+            }
+            expressionMotionQueueManager.startMotion(expressions[motionIndex]);
+        }
+        expressionMotionQueueManager.updateParam(live2dModel);
 
 
         //判断待机动作
